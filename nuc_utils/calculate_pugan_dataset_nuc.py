@@ -54,7 +54,7 @@ def read_each_file(filepath,lable):
         return ret
 
 if __name__ == '__main__':
-    filedir = './outputs/punet_with_uni'
+    filedir = './outputs/punet_pugan_dataset'
     # get the sum of all the values in XXX_density.xyz files
     avg = read_dir(filedir, 0)
     AVG = avg / (K * D * 1.0)

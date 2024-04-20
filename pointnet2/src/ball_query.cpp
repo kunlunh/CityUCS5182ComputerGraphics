@@ -1,11 +1,13 @@
 #include <torch/serialize/tensor.h>
 #include <vector>
-#include <THC/THC.h>
+//#include <THC/THC.h>
 #include <cuda.h>
 #include <cuda_runtime_api.h>
 #include "ball_query_gpu.h"
+#include <c10/cuda/CUDACachingAllocator.h>
+#include <ATen/cuda/CUDAContext.h>
 
-extern THCState *state;
+//extern THCState *state;
 
 #define CHECK_CUDA(x) TORCH_CHECK(x.type().is_cuda(), #x, " must be a CUDAtensor ")
 #define CHECK_CONTIGUOUS(x) TORCH_CHECK(x.is_contiguous(), #x, " must be contiguous ")
@@ -19,7 +21,7 @@ int ball_query_wrapper_fast(int b, int n, int m, float radius, int nsample,
     const float *xyz = xyz_tensor.data<float>();
     int *idx = idx_tensor.data<int>();
     
-    cudaStream_t stream = at::cuda::getCurrentCUDAStream();
+    cudaStream_t stream = c10::cuda::getCurrentCUDAStream();
     ball_query_kernel_launcher_fast(b, n, m, radius, nsample, new_xyz, xyz, idx, stream);
     return 1;
 }

@@ -16,7 +16,7 @@ class _PointnetSAModuleBase(nn.Module):
         self.mlps = None
         self.pool_method = 'max_pool'
 
-    def forward(self, xyz: torch.Tensor, features: torch.Tensor = None, new_xyz=None) -> (torch.Tensor, torch.Tensor):
+    def forward(self, xyz: torch.Tensor, features: torch.Tensor = None, npoint=None, new_xyz=None) -> (torch.Tensor, torch.Tensor):
         """
         :param xyz: (B, N, 3) tensor of the xyz coordinates of the features
         :param features: (B, N, C) tensor of the descriptors of the the features
@@ -25,6 +25,8 @@ class _PointnetSAModuleBase(nn.Module):
             new_xyz: (B, npoint, 3) tensor of the new features' xyz
             new_features: (B, npoint, \sum_k(mlps[k][-1])) tensor of the new_features descriptors
         """
+        if npoint is not None:
+            self.npoint = npoint
         new_features_list = []
 
         xyz_flipped = xyz.transpose(1, 2).contiguous()
@@ -36,7 +38,6 @@ class _PointnetSAModuleBase(nn.Module):
 
         for i in range(len(self.groupers)):
             new_features = self.groupers[i](xyz, new_xyz, features)  # (B, C, npoint, nsample)
-
             new_features = self.mlps[i](new_features)  # (B, mlp[-1], npoint, nsample)
             if self.pool_method == 'max_pool':
                 new_features = F.max_pool2d(
@@ -59,7 +60,7 @@ class PointnetSAModuleMSG(_PointnetSAModuleBase):
     """Pointnet set abstraction layer with multiscale grouping"""
 
     def __init__(self, *, npoint: int, radii: List[float], nsamples: List[int], mlps: List[List[int]], bn: bool = True,
-                 use_xyz: bool = True, pool_method='max_pool', instance_norm=False):
+                 use_xyz: bool = True, use_res = False, pool_method='max_pool', instance_norm=False):
         """
         :param npoint: int
         :param radii: list of float, list of radii to group with
@@ -88,7 +89,10 @@ class PointnetSAModuleMSG(_PointnetSAModuleBase):
             if use_xyz:
                 mlp_spec[0] += 3
 
-            self.mlps.append(pt_utils.SharedMLP(mlp_spec, bn=bn, instance_norm=instance_norm))
+            if use_res:
+                self.mlps.append(pt_utils.SharedResMLP(mlp_spec, bn=bn))
+            else:
+                self.mlps.append(pt_utils.SharedMLP(mlp_spec, bn=bn, instance_norm=instance_norm))
         self.pool_method = pool_method
 
 
@@ -96,7 +100,7 @@ class PointnetSAModule(PointnetSAModuleMSG):
     """Pointnet set abstraction layer"""
 
     def __init__(self, *, mlp: List[int], npoint: int = None, radius: float = None, nsample: int = None,
-                 bn: bool = True, use_xyz: bool = True, pool_method='max_pool', instance_norm=False):
+                 bn: bool = True, use_xyz: bool = True, use_res = False, pool_method='max_pool', instance_norm=False):
         """
         :param mlp: list of int, spec of the pointnet before the global max_pool
         :param npoint: int, number of features
@@ -108,9 +112,16 @@ class PointnetSAModule(PointnetSAModuleMSG):
         :param instance_norm: whether to use instance_norm
         """
         super().__init__(
-            mlps=[mlp], npoint=npoint, radii=[radius], nsamples=[nsample], bn=bn, use_xyz=use_xyz,
+            mlps=[mlp], npoint=npoint, radii=[radius], nsamples=[nsample], bn=bn, use_xyz=use_xyz, use_res=use_res,
             pool_method=pool_method, instance_norm=instance_norm
         )
+
+
+class PointNetSSG_Base(PointnetSAModuleMSG):
+    def __init__(self, npoint, nsample, radius, in_channel, out_channel, bn=True, use_xyz=False):
+        super().__init__(
+            mlps=[[in_channel, out_channel, out_channel, out_channel]], 
+            npoint=npoint, radii=[radius], nsamples=[nsample], bn=bn, use_xyz=use_xyz, use_res=False)
 
 
 class PointnetFPModule(nn.Module):

@@ -1,6 +1,6 @@
 gpu=0
 model=punet
-extra_tag=punet_with_uni
+extra_tag=punet_pugan_dataset
 epoch=99
 
 mkdir outputs/${extra_tag}

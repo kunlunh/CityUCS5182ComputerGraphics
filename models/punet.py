@@ -68,7 +68,7 @@ class PUNet(nn.Module):
         in_ch = 128
         self.pcd_layer = nn.Sequential(
             pt_utils.SharedMLP([in_ch, 64], bn=use_bn),
-            pt_utils.SharedMLP([64, 3], activation=None, bn=False)) 
+            pt_utils.SharedMLP([64, 3], activation=None, bn=False))
 
 
     def forward(self, points, npoint=None):

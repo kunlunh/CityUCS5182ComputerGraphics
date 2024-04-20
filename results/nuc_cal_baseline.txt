@@ -1,0 +1,47 @@
+calculating AVG ....
+./outputs/punet_baseline/star_density.xyz
+./outputs/punet_baseline/sculpt_density.xyz
+./outputs/punet_baseline/moai_density.xyz
+./outputs/punet_baseline/coverrear_Lp_density.xyz
+./outputs/punet_baseline/pig_density.xyz
+./outputs/punet_baseline/Octahedron_density.xyz
+./outputs/punet_baseline/elk_density.xyz
+./outputs/punet_baseline/chair_density.xyz
+./outputs/punet_baseline/cow_density.xyz
+./outputs/punet_baseline/fandisk_density.xyz
+./outputs/punet_baseline/duck_density.xyz
+./outputs/punet_baseline/horse_density.xyz
+./outputs/punet_baseline/casting_density.xyz
+./outputs/punet_baseline/Icosahedron_density.xyz
+./outputs/punet_baseline/quadric_density.xyz
+./outputs/punet_baseline/eight_density.xyz
+./outputs/punet_baseline/camel_density.xyz
+./outputs/punet_baseline/elephant_density.xyz
+./outputs/punet_baseline/kitten_density.xyz
+./outputs/punet_baseline/genus3_density.xyz
+calculating NUC ....
+./outputs/punet_baseline/star_density.xyz
+./outputs/punet_baseline/sculpt_density.xyz
+./outputs/punet_baseline/moai_density.xyz
+./outputs/punet_baseline/coverrear_Lp_density.xyz
+./outputs/punet_baseline/pig_density.xyz
+./outputs/punet_baseline/Octahedron_density.xyz
+./outputs/punet_baseline/elk_density.xyz
+./outputs/punet_baseline/chair_density.xyz
+./outputs/punet_baseline/cow_density.xyz
+./outputs/punet_baseline/fandisk_density.xyz
+./outputs/punet_baseline/duck_density.xyz
+./outputs/punet_baseline/horse_density.xyz
+./outputs/punet_baseline/casting_density.xyz
+./outputs/punet_baseline/Icosahedron_density.xyz
+./outputs/punet_baseline/quadric_density.xyz
+./outputs/punet_baseline/eight_density.xyz
+./outputs/punet_baseline/camel_density.xyz
+./outputs/punet_baseline/elephant_density.xyz
+./outputs/punet_baseline/kitten_density.xyz
+./outputs/punet_baseline/genus3_density.xyz
+cnt= [48.8087     30.49249922 25.10765125 22.13345137 19.7966     18.5664095
+ 17.03158765]
+NUC is
+[0.2470038  0.19523223 0.17715689 0.16633344 0.15730782 0.15234176
+ 0.14590917]

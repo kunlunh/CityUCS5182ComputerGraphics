@@ -1,5 +1,5 @@
 #!/bin/bash
-extra_tag=punet_baseline
+extra_tag=punet_with_uni_pugan_dataset
 
 result_dir=./outputs/$extra_tag/
 gt_dir=./datas/test_data/test_mesh

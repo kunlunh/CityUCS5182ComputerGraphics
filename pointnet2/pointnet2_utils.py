@@ -124,7 +124,7 @@ class ThreeInterpolate(Function):
 
         B, c, m = features.size()
         n = idx.size(1)
-        ctx.three_interpolate_for_backward = (idx, weight, m)
+        ctx.save_for_backward(idx, weight, features)
         output = torch.cuda.FloatTensor(B, c, n)
 
         pointnet2.three_interpolate_wrapper(B, c, m, n, features, idx, weight, output)
@@ -140,8 +140,9 @@ class ThreeInterpolate(Function):
             None:
             None:
         """
-        idx, weight, m = ctx.three_interpolate_for_backward
-        B, c, n = grad_out.size()
+        idx, weight, features = ctx.saved_tensors
+        B, c, m = features.size()
+        n = idx.size(1)
 
         grad_features = Variable(torch.cuda.FloatTensor(B, c, m).zero_())
         grad_out_data = grad_out.data.contiguous()
@@ -189,7 +190,7 @@ class GroupingOperation(Function):
         B, C, npoint, nsample = grad_out.size()
         grad_features = Variable(torch.cuda.FloatTensor(B, C, N).zero_())
 
-        grad_out_data = grad_out.data.contiguous()
+        grad_out_data = grad_out.data.contiguous().float()
         pointnet2.group_points_grad_wrapper(B, C, N, npoint, nsample, grad_out_data, idx, grad_features.data)
         return grad_features, None
 
@@ -259,32 +260,6 @@ class QueryAndGroup(nn.Module):
                 new_features = grouped_features
         else:
             assert self.use_xyz, "Cannot have not features and not use xyz as a feature!"
-            new_features = grouped_xyz
-
-        return new_features
-
-
-class GroupAll(nn.Module):
-    def __init__(self, use_xyz: bool = True):
-        super().__init__()
-        self.use_xyz = use_xyz
-
-    def forward(self, xyz: torch.Tensor, new_xyz: torch.Tensor, features: torch.Tensor = None):
-        """
-        :param xyz: (B, N, 3) xyz coordinates of the features
-        :param new_xyz: ignored
-        :param features: (B, C, N) descriptors of the features
-        :return:
-            new_features: (B, C + 3, 1, N)
-        """
-        grouped_xyz = xyz.transpose(1, 2).unsqueeze(2)
-        if features is not None:
-            grouped_features = features.unsqueeze(2)
-            if self.use_xyz:
-                new_features = torch.cat([grouped_xyz, grouped_features], dim=1)  # (B, 3 + C, 1, N)
-            else:
-                new_features = grouped_features
-        else:
             new_features = grouped_xyz
 
         return new_features

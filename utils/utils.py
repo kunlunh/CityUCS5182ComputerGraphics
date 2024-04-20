@@ -47,12 +47,12 @@ def rotate_point_cloud_and_gt(input_data, gt_data=None):
 
     input_data[:, :3] = np.dot(input_data[:, :3], rotation_matrix)
     if input_data.shape[1] > 3:
-        input_data[:, 3:] = np.dot(input_data[:, 3:], rotation_matrix)
+        input_data[:, 3:6] = np.dot(input_data[:, 3:], rotation_matrix)
     
     if gt_data is not None:
         gt_data[:, :3] = np.dot(gt_data[:, :3], rotation_matrix)
         if gt_data.shape[1] > 3:
-            gt_data[:, 3:] = np.dot(gt_data[:, 3:], rotation_matrix)
+            gt_data[:, 3:6] = np.dot(gt_data[:, 3:], rotation_matrix)
 
     return input_data, gt_data
 

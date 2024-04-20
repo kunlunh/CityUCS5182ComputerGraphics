@@ -1,0 +1,541 @@
+Icosahedron.off Octahedron.off camel.off casting.off chair.off coverrear_Lp.off cow.off duck.off eight.off elephant.off elk.off fandisk.off genus3.off horse.off kitten.off moai.off pig.off quadric.off sculpt.off star.off
+Icosahedron
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/Icosahedron.off
+./outputs/punet_with_uni//Icosahedron.xyz
+####################
+Read ./datas/test_data/test_mesh/Icosahedron.off
+This mesh has 5120 faces
+The total surface area of this mesh is 9.57458
+20000 prediction points
+The point2surface distance:
+Mean: 0.0153347 std: 0.0114161 min: 1.78616e-06 max: 0.0817132
+=================================
+40 sample points
+The disk radius are: 0.0780728 0.110412 0.135226 0.156146 0.174576 0.191239 0.213811
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 47 90 219
+ID 0 41 80 204
+finished computation at Fri Apr 12 15:23:43 2024
+elapsed time: 27.5856s
+Octahedron
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/Octahedron.off
+./outputs/punet_with_uni//Octahedron.xyz
+####################
+Read ./datas/test_data/test_mesh/Octahedron.off
+This mesh has 4095 faces
+The total surface area of this mesh is 6.92824
+20000 prediction points
+The point2surface distance:
+Mean: 0.011767 std: 0.00974833 min: 5.7735e-07 max: 0.0731696
+=================================
+40 sample points
+The disk radius are: 0.0664128 0.0939218 0.11503 0.132826 0.148503 0.162677 0.181879
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 31 68 172
+ID 0 46 84 206
+finished computation at Fri Apr 12 15:24:00 2024
+elapsed time: 13.7472s
+camel
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/camel.off
+./outputs/punet_with_uni//camel.xyz
+####################
+Read ./datas/test_data/test_mesh/camel.off
+This mesh has 19536 faces
+The total surface area of this mesh is 2.52348
+20000 prediction points
+The point2surface distance:
+Mean: 0.0143963 std: 0.0116125 min: 2.33063e-06 max: 0.0848847
+=================================
+40 sample points
+The disk radius are: 0.0400811 0.0566832 0.0694225 0.0801622 0.0896241 0.0981783 0.109767
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 38 81 186
+ID 0 33 62 154
+finished computation at Fri Apr 12 15:25:04 2024
+elapsed time: 57.7724s
+casting
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/casting.off
+./outputs/punet_with_uni//casting.xyz
+####################
+Read ./datas/test_data/test_mesh/casting.off
+This mesh has 3684 faces
+The total surface area of this mesh is 6.77491
+20000 prediction points
+The point2surface distance:
+Mean: 0.0138798 std: 0.0103656 min: 1.17961e-15 max: 0.085364
+=================================
+40 sample points
+The disk radius are: 0.0656738 0.0928767 0.11375 0.131348 0.146851 0.160867 0.179855
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 45 87 226
+ID 0 48 97 227
+finished computation at Fri Apr 12 15:25:18 2024
+elapsed time: 7.57924s
+chair
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/chair.off
+./outputs/punet_with_uni//chair.xyz
+####################
+Read ./datas/test_data/test_mesh/chair.off
+This mesh has 10208 faces
+The total surface area of this mesh is 3.1816
+20000 prediction points
+The point2surface distance:
+Mean: 0.0125717 std: 0.0104618 min: 9.84479e-07 max: 0.0770969
+=================================
+40 sample points
+The disk radius are: 0.0450052 0.063647 0.0779513 0.0900104 0.100635 0.11024 0.123252
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 38 81 202
+ID 20 60 112 260
+finished computation at Fri Apr 12 15:25:49 2024
+elapsed time: 25.1479s
+coverrear_Lp
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/coverrear_Lp.off
+./outputs/punet_with_uni//coverrear_Lp.xyz
+####################
+Read ./datas/test_data/test_mesh/coverrear_Lp.off
+This mesh has 7870 faces
+The total surface area of this mesh is 7.00972
+20000 prediction points
+The point2surface distance:
+Mean: 0.014386 std: 0.0113033 min: 2.21506e-07 max: 0.070284
+=================================
+40 sample points
+The disk radius are: 0.0668021 0.0944725 0.115705 0.133604 0.149374 0.163631 0.182945
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 45 81 206
+ID 20 37 85 185
+finished computation at Fri Apr 12 15:26:29 2024
+elapsed time: 33.284s
+cow
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/cow.off
+./outputs/punet_with_uni//cow.xyz
+####################
+Read ./datas/test_data/test_mesh/cow.off
+This mesh has 8626 faces
+The total surface area of this mesh is 3.07614
+20000 prediction points
+The point2surface distance:
+Mean: 0.0120385 std: 0.010826 min: 9.38033e-07 max: 0.0837159
+=================================
+40 sample points
+The disk radius are: 0.0442531 0.0625833 0.0766486 0.0885061 0.0989529 0.108397 0.121192
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 61 121 282
+ID 0 31 62 154
+finished computation at Fri Apr 12 15:26:56 2024
+elapsed time: 22.2804s
+duck
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/duck.off
+./outputs/punet_with_uni//duck.xyz
+####################
+Read ./datas/test_data/test_mesh/duck.off
+This mesh has 5000 faces
+The total surface area of this mesh is 7.11018
+20000 prediction points
+The point2surface distance:
+Mean: 0.0121182 std: 0.0104256 min: 8.7919e-07 max: 0.0901162
+=================================
+40 sample points
+The disk radius are: 0.0672791 0.0951471 0.116531 0.134558 0.150441 0.1648 0.184251
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 29 70 206
+ID 20 31 73 173
+finished computation at Fri Apr 12 15:27:14 2024
+elapsed time: 14.4474s
+eight
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/eight.off
+./outputs/punet_with_uni//eight.xyz
+####################
+Read ./datas/test_data/test_mesh/eight.off
+This mesh has 6144 faces
+The total surface area of this mesh is 4.05776
+20000 prediction points
+The point2surface distance:
+Mean: 0.0128109 std: 0.0120171 min: 9.03186e-07 max: 0.0968188
+=================================
+40 sample points
+The disk radius are: 0.0508257 0.0718784 0.0880327 0.101651 0.11365 0.124497 0.139192
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 32 70 191
+ID 20 35 67 200
+finished computation at Fri Apr 12 15:27:37 2024
+elapsed time: 18.9898s
+elephant
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/elephant.off
+./outputs/punet_with_uni//elephant.xyz
+####################
+Read ./datas/test_data/test_mesh/elephant.off
+This mesh has 12478 faces
+The total surface area of this mesh is 3.34269
+20000 prediction points
+The point2surface distance:
+Mean: 0.016537 std: 0.0133688 min: 3.2167e-06 max: 0.0783049
+=================================
+40 sample points
+The disk radius are: 0.0461305 0.0652384 0.0799004 0.092261 0.103151 0.112996 0.126334
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 50 102 218
+ID 0 25 54 205
+finished computation at Fri Apr 12 15:28:25 2024
+elapsed time: 41.8047s
+elk
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/elk.off
+./outputs/punet_with_uni//elk.xyz
+####################
+Read ./datas/test_data/test_mesh/elk.off
+This mesh has 5000 faces
+The total surface area of this mesh is 4.9727
+20000 prediction points
+The point2surface distance:
+Mean: 0.0143254 std: 0.0122222 min: 1.5218e-06 max: 0.079745
+=================================
+40 sample points
+The disk radius are: 0.0562647 0.0795703 0.0974533 0.112529 0.125812 0.13782 0.154087
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 38 87 223
+ID 0 30 53 151
+finished computation at Fri Apr 12 15:28:39 2024
+elapsed time: 8.83997s
+fandisk
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/fandisk.off
+./outputs/punet_with_uni//fandisk.xyz
+####################
+Read ./datas/test_data/test_mesh/fandisk.off
+This mesh has 5458 faces
+The total surface area of this mesh is 4.37585
+20000 prediction points
+The point2surface distance:
+Mean: 0.0162279 std: 0.0123771 min: 9.6902e-07 max: 0.0691864
+=================================
+40 sample points
+The disk radius are: 0.0527803 0.0746426 0.0914181 0.105561 0.11802 0.129285 0.144545
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 41 84 212
+ID 20 38 89 205
+finished computation at Fri Apr 12 15:29:03 2024
+elapsed time: 17.9776s
+genus3
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/genus3.off
+./outputs/punet_with_uni//genus3.xyz
+####################
+Read ./datas/test_data/test_mesh/genus3.off
+This mesh has 6656 faces
+The total surface area of this mesh is 6.43325
+20000 prediction points
+The point2surface distance:
+Mean: 0.0145384 std: 0.0118492 min: 1.28598e-06 max: 0.0751226
+=================================
+40 sample points
+The disk radius are: 0.0639964 0.0905045 0.110845 0.127993 0.1431 0.156758 0.175261
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 28 68 166
+ID 20 42 81 193
+finished computation at Fri Apr 12 15:29:30 2024
+elapsed time: 21.8641s
+horse
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/horse.off
+./outputs/punet_with_uni//horse.xyz
+####################
+Read ./datas/test_data/test_mesh/horse.off
+This mesh has 9924 faces
+The total surface area of this mesh is 2.55465
+20000 prediction points
+The point2surface distance:
+Mean: 0.0133944 std: 0.0115081 min: 2.1814e-06 max: 0.0897349
+=================================
+40 sample points
+The disk radius are: 0.0403279 0.0570323 0.06985 0.0806559 0.090176 0.0987829 0.110443
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 46 96 239
+ID 20 43 93 209
+finished computation at Fri Apr 12 15:30:06 2024
+elapsed time: 31.7625s
+kitten
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/kitten.off
+./outputs/punet_with_uni//kitten.xyz
+####################
+Read ./datas/test_data/test_mesh/kitten.off
+This mesh has 12100 faces
+The total surface area of this mesh is 4.77064
+20000 prediction points
+The point2surface distance:
+Mean: 0.012737 std: 0.0112308 min: 4.07021e-07 max: 0.0792459
+=================================
+40 sample points
+The disk radius are: 0.0551097 0.0779369 0.0954529 0.110219 0.123229 0.134991 0.150924
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 35 56 172
+ID 20 35 97 220
+finished computation at Fri Apr 12 15:30:54 2024
+elapsed time: 42.5376s
+moai
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/moai.off
+./outputs/punet_with_uni//moai.xyz
+####################
+Read ./datas/test_data/test_mesh/moai.off
+This mesh has 10000 faces
+The total surface area of this mesh is 4.42714
+20000 prediction points
+The point2surface distance:
+Mean: 0.0131253 std: 0.0107673 min: 2.32519e-07 max: 0.0940727
+=================================
+40 sample points
+The disk radius are: 0.0530887 0.0750787 0.0919523 0.106177 0.11871 0.13004 0.145389
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 35 83 178
+ID 0 47 82 199
+finished computation at Fri Apr 12 15:31:33 2024
+elapsed time: 35.2038s
+pig
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/pig.off
+./outputs/punet_with_uni//pig.xyz
+####################
+Read ./datas/test_data/test_mesh/pig.off
+This mesh has 3560 faces
+The total surface area of this mesh is 3.21294
+20000 prediction points
+The point2surface distance:
+Mean: 0.012409 std: 0.0116816 min: 3.02623e-06 max: 0.103749
+=================================
+40 sample points
+The disk radius are: 0.0452263 0.0639597 0.0783343 0.0904526 0.101129 0.110781 0.123857
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 34 73 190
+ID 20 49 100 249
+finished computation at Fri Apr 12 15:31:45 2024
+elapsed time: 7.89571s
+quadric
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/quadric.off
+./outputs/punet_with_uni//quadric.xyz
+####################
+Read ./datas/test_data/test_mesh/quadric.off
+This mesh has 14636 faces
+The total surface area of this mesh is 3.5946
+20000 prediction points
+The point2surface distance:
+Mean: 0.0165865 std: 0.0130955 min: 1.80446e-06 max: 0.0835775
+=================================
+40 sample points
+The disk radius are: 0.0478372 0.067652 0.0828564 0.0956743 0.106967 0.117177 0.131007
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 0 41 81 195
+ID 20 41 84 199
+finished computation at Fri Apr 12 15:32:42 2024
+elapsed time: 50.9283s
+sculpt
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/sculpt.off
+./outputs/punet_with_uni//sculpt.xyz
+####################
+Read ./datas/test_data/test_mesh/sculpt.off
+This mesh has 7342 faces
+The total surface area of this mesh is 13.7519
+20000 prediction points
+The point2surface distance:
+Mean: 0.0191357 std: 0.015419 min: 1.8451e-06 max: 0.0868347
+=================================
+40 sample points
+The disk radius are: 0.0935668 0.132323 0.162062 0.187134 0.209222 0.229191 0.256243
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 43 84 219
+ID 0 46 87 202
+finished computation at Fri Apr 12 15:33:02 2024
+elapsed time: 16.1201s
+star
+####################
+./nuc_utils/build/evaluation
+./datas/test_data/test_mesh/star.off
+./outputs/punet_with_uni//star.xyz
+####################
+Read ./datas/test_data/test_mesh/star.off
+This mesh has 7654 faces
+The total surface area of this mesh is 7.79145
+20000 prediction points
+The point2surface distance:
+Mean: 0.0119944 std: 0.00986734 min: 2.18796e-06 max: 0.0891224
+=================================
+40 sample points
+The disk radius are: 0.0704286 0.0996011 0.121986 0.140857 0.157483 0.172514 0.192877
+Create thread 0
+In this function, handle 0 to 10
+Create thread 1
+In this function, handle 10 to 20
+Create thread 2
+In this function, handle 20 to 30
+Create thread 3
+In this function, handle 30 to 40
+ID 20 40 88 223
+ID 0 44 94 216
+finished computation at Fri Apr 12 15:33:41 2024
+elapsed time: 35.4786s

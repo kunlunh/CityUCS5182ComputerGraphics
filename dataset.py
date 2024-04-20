@@ -5,6 +5,9 @@ from utils import utils
 from glob import glob
 import os
 
+NUM_EDGE = 120
+NUM_FACE = 800
+
 class PUNET_Dataset_Whole(torch_data.Dataset):
     def __init__(self, data_dir='./datas/test_data/our_collected_data/MC_5k'):
         super().__init__()
@@ -52,6 +55,124 @@ class PUNET_Dataset_WholeFPS_1k(torch_data.Dataset):
         else:
             raise NotImplementedError
 
+class ECNET_Dataset(torch_data.Dataset):
+    def __init__(self, skip_rate=1, npoint=1024):
+        super().__init__()
+        
+        self.npoint = npoint
+        
+        h5_filename = './datas/mix_CAD1k_halfnoise.h5'
+        f = h5py.File(h5_filename)
+        input = f['mc8k_input'][:]
+        edge = f['mc8k_input'][:]
+        assert len(input) == len(edge)
+        
+        # ####
+        h5_filename = './datas/mix_Virtualscan1k_halfnoise.h5'
+        f = h5py.File(h5_filename)
+        input1 = f['mc8k_input'][:]
+        edge1 = f['mc8k_input'][:]
+        assert len(input1) == len(edge1)
+        
+        input = np.concatenate([input,input1],axis=0)
+        edge  = np.concatenate([edge,edge1],axis=0)
+        # ######
+
+        self.data_npoint = input.shape[1]
+           
+        data_radius = np.ones(shape=(len(input)))
+        centroid = np.mean(input[:,:,0:3], axis=1, keepdims=True)
+        input[:,:,0:3] = input[:,:,0:3] - centroid
+        distance = np.sqrt(np.sum(input[:,:,0:3] ** 2, axis=-1))
+        furthest_distance = np.amax(distance,axis=1,keepdims=True)
+        input[:, :, 0:3] = input[:,:,0:3] / np.expand_dims(furthest_distance,axis=-1)
+
+        edge[:, :, 0:3] = edge[:, :, 0:3] - centroid
+        edge[:, :, 0:3] = edge[:, :, 0:3] / np.expand_dims(furthest_distance,axis=-1)
+
+        self.input = input[::skip_rate]
+        self.gt = edge[::skip_rate]
+        self.radius = data_radius[::skip_rate]
+
+    def __len__(self):
+        return self.input.shape[0]
+
+    def __getitem__(self, index):
+        input_data = self.input[index]
+        gt_data = self.gt[index]
+        radius_data = np.array([self.radius[index]])
+
+        sample_idx = utils.nonuniform_sampling(self.data_npoint, sample_num=self.npoint)
+        input_data = input_data[sample_idx, :]
+        
+        # for data aug
+        input_data, gt_data = utils.rotate_point_cloud_and_gt(input_data, gt_data)
+        input_data, gt_data, scale = utils.random_scale_point_cloud_and_gt(input_data, gt_data,
+                                                                            scale_low=0.9, scale_high=1.1)
+        input_data, gt_data = utils.shift_point_cloud_and_gt(input_data, gt_data, shift_range=0.1)
+        radius_data = radius_data * scale
+
+        # for input aug
+        if np.random.rand() > 0.5:
+            input_data = utils.jitter_perturbation_point_cloud(input_data, sigma=0.025, clip=0.05)
+        if np.random.rand() > 0.5:
+            input_data = utils.rotate_perturbation_point_cloud(input_data, angle_sigma=0.03, angle_clip=0.09)
+
+        return input_data, gt_data, radius_data
+
+class PUGAN_Dataset(torch_data.Dataset):
+    def __init__(self, h5_file_path='./datas/PUGAN_poisson_256_poisson_1024.h5', 
+                    skip_rate=1, npoint=256, use_norm=True):
+        super().__init__()
+        
+        self.npoint = npoint
+        self.use_norm = use_norm
+
+        h5_file = h5py.File(h5_file_path)
+        self.gt = h5_file['poisson_1024'][:] # [:] h5_obj => nparray
+        self.input = h5_file['poisson_1024'][:]
+        
+        assert len(self.input) == len(self.gt), 'invalid data'
+        self.data_npoint = self.input.shape[1]
+
+        centroid = np.mean(self.gt[..., :3], axis=1, keepdims=True)
+        furthest_distance = np.amax(np.sqrt(np.sum((self.gt[..., :3] - centroid) ** 2, axis=-1)), axis=1, keepdims=True)
+        self.radius = furthest_distance[:, 0] # not very sure?
+
+        if use_norm:
+            self.radius = np.ones(shape=(len(self.input)))
+            self.gt[..., :3] -= centroid
+            self.gt[..., :3] /= np.expand_dims(furthest_distance, axis=-1)
+            self.input[..., :3] -= centroid
+            self.input[..., :3] /= np.expand_dims(furthest_distance, axis=-1)
+
+        self.input = self.input[::skip_rate]
+        self.gt = self.gt[::skip_rate]
+        self.radius = self.radius[::skip_rate]
+
+    def __len__(self):
+        return self.input.shape[0]
+
+    def __getitem__(self, index):
+        input_data = self.input[index]
+        gt_data = self.gt[index]
+        radius_data = np.array([self.radius[index]])
+
+        sample_idx = utils.nonuniform_sampling(self.data_npoint, sample_num=self.npoint)
+        input_data = input_data[sample_idx, :]
+
+        if self.use_norm:       
+            # for data aug
+            input_data = utils.jitter_perturbation_point_cloud(input_data, sigma=0.01, clip=0.03)
+            input_data, gt_data = utils.rotate_point_cloud_and_gt(input_data, gt_data)
+            input_data, gt_data, scale = utils.random_scale_point_cloud_and_gt(input_data, gt_data,
+                                                                               scale_low=0.8, scale_high=1.2)
+            radius_data = radius_data * scale
+
+        else:
+            raise NotImplementedError
+
+        return input_data, gt_data, radius_data
 
 class PUNET_Dataset(torch_data.Dataset):
     def __init__(self, h5_file_path='./datas/Patches_noHole_and_collected.h5', 

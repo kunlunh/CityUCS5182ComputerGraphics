@@ -38,6 +38,9 @@ from dataset import PUNET_Dataset
 import numpy as np
 import importlib
 
+from knn_cuda import KNN
+
+import math
 
 class UpsampleLoss(nn.Module):
     def __init__(self, alpha=1.0, nn_size=5, radius=0.07, h=0.03, eps=1e-12):
@@ -47,6 +50,9 @@ class UpsampleLoss(nn.Module):
         self.radius = radius
         self.h = h
         self.eps = eps
+        
+        self.knn_uniform=KNN(k=2,transpose_mode=True)
+        self.knn_repulsion=KNN(k=20,transpose_mode=True)
         
         self.double()
 
@@ -67,6 +73,7 @@ class UpsampleLoss(nn.Module):
         cost = torch.mean(cost)
         return cost
 
+    '''
     def get_repulsion_loss(self, pred):
         _, idx = knn_point(self.nn_size, pred, pred, transpose_mode=True)
         idx = idx[:, :, 1:].to(torch.int32) # remove first one
@@ -83,11 +90,55 @@ class UpsampleLoss(nn.Module):
 
         uniform_loss = torch.mean((self.radius - dist) * weight)
         # uniform_loss = torch.mean(self.radius - dist * weight) # punet
+        
         return uniform_loss
+    '''
+    
+    def get_uniform_loss(self,pcd,percentage=[0.004,0.006,0.008,0.010,0.012],radius=1.0):
+        B,N,C=pcd.shape[0],pcd.shape[1],pcd.shape[2]
+        npoint=int(N*0.05)
+        loss=0
+        further_point_idx = pn2_utils.furthest_point_sample(pcd.contiguous(), npoint)
+        new_xyz = pn2_utils.gather_operation(pcd.permute(0, 2, 1).contiguous(), further_point_idx)  # B,C,N
+        for p in percentage:
+            nsample=int(N*p)
+            r=math.sqrt(p*radius)
+            disk_area=math.pi*(radius**2)/N
 
+            idx=pn2_utils.ball_query(r,nsample,pcd.contiguous(),new_xyz.permute(0,2,1).contiguous()) #b N nsample
+
+            expect_len=math.sqrt(disk_area)
+
+            grouped_pcd=pn2_utils.grouping_operation(pcd.permute(0,2,1).contiguous(),idx)#B C N nsample
+            grouped_pcd=grouped_pcd.permute(0,2,3,1) #B N nsample C
+
+            grouped_pcd=torch.cat(torch.unbind(grouped_pcd,dim=1),dim=0)#B*N nsample C
+
+            dist,_=self.knn_uniform(grouped_pcd,grouped_pcd)
+            #print(dist.shape)
+            uniform_dist=dist[:,:,1:] #B*N nsample 1
+            uniform_dist=torch.abs(uniform_dist+1e-8)
+            uniform_dist=torch.mean(uniform_dist,dim=1)
+            uniform_dist=(uniform_dist-expect_len)**2/(expect_len+1e-8)
+            mean_loss=torch.mean(uniform_dist)
+            mean_loss=mean_loss*math.pow(p*100,2)
+            loss+=mean_loss
+        return loss/len(percentage)
+    
+    def get_repulsion_loss(self,pcd,h=0.0005):
+        dist,idx=self.knn_repulsion(pcd,pcd)#B N k
+
+        dist=dist[:,:,1:5]**2 #top 4 cloest neighbors
+
+        loss=torch.clamp(-dist+h,min=0)
+        loss=torch.mean(loss)
+        #print(loss)
+        return loss
+    
     def forward(self, pred, gt, pcd_radius):
         return self.get_emd_loss(pred, gt, pcd_radius) * 100, \
-            self.alpha * self.get_repulsion_loss(pred)
+            self.get_uniform_loss(pred) * 10, \
+            self.get_repulsion_loss(pred) * 5, \
 
 def get_optimizer():
     if args.optim == 'adam':
@@ -143,8 +194,8 @@ if __name__ == '__main__':
             radius_data = radius_data.float().cuda()
 
             preds = model(input_data)
-            emd_loss, rep_loss = loss_func(preds, gt_data, radius_data)
-            loss = emd_loss + rep_loss
+            emd_loss, uni_loss, rep_loss = loss_func(preds, gt_data, radius_data)
+            loss = emd_loss + rep_loss + uni_loss
         
             loss.backward()         
             optimizer.step()

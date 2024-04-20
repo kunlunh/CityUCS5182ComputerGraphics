@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(description="Arg parser")
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use')
 parser.add_argument("--model", type=str, default='punet')
 parser.add_argument('--log_dir', default='logs/test', help='Log dir [default: logs/test_log]')
-parser.add_argument('--npoint', type=int, default=1024,help='Point Number [1024/2048] [default: 1024]')
+parser.add_argument('--npoint', type=int, default=256,help='Point Number [1024/2048] [default: 1024]')
 parser.add_argument('--up_ratio',  type=int,  default=4, help='Upsampling Ratio [default: 4]')
 parser.add_argument('--max_epoch', type=int, default=100, help='Epochs to run [default: 100]')
 parser.add_argument('--batch_size', type=int, default=32, help='Batch Size during training')
@@ -20,6 +20,7 @@ parser.add_argument('--lr_clip', type=float, default=0.000001)
 parser.add_argument('--decay_step_list', type=list, default=[30, 60])
 parser.add_argument('--weight_decay', type=float, default=0.0005)
 parser.add_argument('--workers', type=int, default=4)
+parser.add_argument('--dataset', type=str, default='simple')
 
 args = parser.parse_args()
 print(args)
@@ -34,7 +35,7 @@ from utils.utils import knn_point
 from chamfer_distance import chamfer_distance
 from auction_match import auction_match
 
-from dataset import PUNET_Dataset
+from dataset import PUGAN_Dataset
 import numpy as np
 import importlib
 
@@ -115,8 +116,9 @@ def get_optimizer():
 
 
 if __name__ == '__main__':
-    train_dst = PUNET_Dataset(npoint=args.npoint, 
-            use_random=True, use_norm=True, split='train', is_training=True)
+    import os
+    os.environ['CUDA_LAUNCH_BLOCKING'] = '1' #
+    train_dst = PUGAN_Dataset(npoint=args.npoint)
     train_loader = DataLoader(train_dst, batch_size=args.batch_size, 
                         shuffle=True, pin_memory=True, num_workers=args.workers)
 
